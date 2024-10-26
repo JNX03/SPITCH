@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPITCH Dashboard</title>
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #000000;
+            --card: #ffffff;
+            --card-foreground: #000000;
+            --primary: #0ea5e9;
+            --primary-foreground: #ffffff;
+            --muted: #f1f5f9;
+            --muted-foreground: #64748b;
+            --accent: #f1f5f9;
+            --accent-foreground: #0f172a;
+            --border: #e2e8f0;
+        }
+        .dark {
+            --background: #0f172a;
+            --foreground: #ffffff;
+            --card: #1e293b;
+            --card-foreground: #ffffff;
+            --primary: #0ea5e9;
+            --primary-foreground: #ffffff;
+            --muted: #1e293b;
+            --muted-foreground: #94a3b8;
+            --accent: #1e293b;
+            --accent-foreground: #ffffff;
+            --border: #1e293b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        h1, h2 {
+            margin: 0;
+        }
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .card {
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .card-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        .button {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .button:hover {
+            background-color: #0284c7;
+        }
+        .input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+        .select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+        .progress {
+            width: 100%;
+            height: 0.5rem;
+            background-color: var(--muted);
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+        .font-bold {
+            font-weight: bold;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-sm {
+            font-size: 0.875rem;
+        }
+        .w-64 {
+            width: 16rem;
+        }
+        .h-64 {
+            height: 16rem;
+        }
+        .mt-8 {
+            margin-top: 2rem;
+        }
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SPITCH</h1>
+            <button id="themeToggle" class="button">🌙</button>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <h2 class="card-title">Lung Quality</h2>
+                <p class="card-description">Current state of your lungs</p>
+                <div style="display: flex; justify-content: center;">
+                    <img id="lungImage" src="https://raw.githubusercontent.com/JNX03/SPITCH/refs/heads/main/lungs.png" alt="Lung" class="w-64 h-64" style="filter: brightness(0) saturate(100%) invert(1) sepia(100%) saturate(10000%) hue-rotate(0deg);">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">Vaping Savings</h2>
+                <p class="card-description">Money saved by quitting vaping</p>
+                <div id="savings" class="text-4xl font-bold text-center mb-4">$0</div>
+                <p class="text-center" style="color: var(--muted-foreground);">Estimated savings since you quit vaping</p>
+            </div>
+        </div>
+
+        <div class="card mt-8">
+            <h2 class="card-title">Stop-Vaping Plan</h2>
+            <p class="card-description">Track your progress and stay motivated</p>
+            <div class="space-y-4">
+                <div class="flex space-x-4">
+                    <div>🫁</div>
+                    <div style="flex: 1;">
+                        <label>Days Without Vaping</label>
+                        <div id="daysWithoutVaping" class="text-2xl font-bold">0 days</div>
+                    </div>
+                    <button id="addDayButton" class="button">Add Day</button>
+                </div>
+                <div>
+                    <label>Progress Towards Goal</label>
+                    <div class="progress">
+                        <div id="progressBar" class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <div id="progressText" class="text-sm" style="color: var(--muted-foreground);"></div>
+                </div>
+                <div class="flex space-x-4">
+                    <div>📅</div>
+                    <div style="flex: 1;">
+                        <label for="goalDays">Goal (Days)</label>
+                        <input id="goalDays" type="number" value="30" class="input">
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <div>💰</div>
+                    <div style="flex: 1;">
+                        <label for="dailyCost">Daily Vaping Cost ($)</label>
+                        <input id="dailyCost" type="number" value="10" class="input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-8">
+            <h2 class="card-title">Settings</h2>
+            <div class="space-y-4">
+                <div class="flex space-x-4" style="justify-content: space-between;">
+                    <label for="lungQuality">Lung Quality</label>
+                    <select id="lungQuality" class="select" style="width: auto;">
+                        <option value="great">Great</option>
+                        <option value="danger">Danger</option>
+                        <option value="bad" selected>Bad</option>
+                        <option value="very-bad">Very Bad</option>
+                    </select>
+                </div>
+                <div class="flex space-x-4" style="justify-content: space-between;">
+                    <label for="darkMode">Dark Mode</label>
+                    <input id="darkMode" type="checkbox" checked>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const darkModeCheckbox = document.getElementById('darkMode');
+        const lungImage = document.getElementById('lungImage');
+        const lungQualitySelect = document.getElementById('lungQuality');
+        const savingsDisplay = document.getElementById('savings');
+        const daysWithoutVapingDisplay = document.getElementById('daysWithoutVaping');
+        const addDayButton = document.getElementById('addDayButton');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const goalDaysInput = document.getElementById('goalDays');
+        const dailyCostInput = document.getElementById('dailyCost');
+
+        let theme = 'dark';
+        let daysWithoutVaping = 0;
+        let goalDays = 30;
+        let dailyVapingCost = 10;
+
+        function toggleTheme() {
+            theme = theme === 'light' ? 'dark' : 'light';
+            document.documentElement.className = theme;
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+            darkModeCheckbox.checked = theme === 'dark';
+        }
+
+        function updateLungColor() {
+            const quality = lungQualitySelect.value;
+            let filter = 'brightness(0) saturate(100%) ';
+            switch (quality) {
+                case 'great':
+                    filter += 'invert(1) sepia(100%) saturate(10000%) hue-rotate(80deg)';
+                    break;
+                case 'danger':
+                    filter += 'invert(1) sepia(100%) saturate(10000%) hue-rotate(40deg)';
+                    break;
+                case 'bad':
+                    filter += 'invert(1) sepia(100%) saturate(10000%) hue-rotate(0deg)';
+                    break;
+                case 'very-bad':
+                    filter += '';
+                    break;
+            }
+            lungImage.style.filter = filter;
+        }
+
+        function calculateSavings() {
+            return daysWithoutVaping * dailyVapingCost;
+        }
+
+        function updateSavings() {
+            savingsDisplay.textContent = `$${calculateSavings().toLocaleString()}`;
+        }
+
+        function updateProgress() {
+            const progress = (daysWithoutVaping / goalDays) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${daysWithoutVaping} / ${goalDays} days`;
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        darkModeCheckbox.addEventListener('change', (e) => {
+            theme = e.target.checked ? 'dark' : 'light';
+            document.documentElement.className = theme;
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        });
+
+        lungQualitySelect.addEventListener('change', updateLungColor);
+
+        addDayButton.addEventListener('click', () => {
+            daysWithoutVaping++;
+            daysWithoutVapingDisplay.textContent = `${daysWithoutVaping} days`;
+            updateSavings();
+            updateProgress();
+        });
+
+        goalDaysInput.addEventListener('change', (e) => {
+            goalDays = parseInt(e.target.value) || 30;
+            updateProgress();
+        });
+
+        dailyCostInput.addEventListener('change', (e) => {
+            dailyVapingCost = parseFloat(e.target.value) || 10;
+            updateSavings();
+        });
+
+        // Initial setup
+        updateLungColor();
+        updateSavings();
+        updateProgress();
+    </script>
+</body>
+</html>
