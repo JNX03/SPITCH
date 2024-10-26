@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPITCH - Your Journey to a Smoke-Free Life</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --background: #0f172a;
+            --foreground: #f8fafc;
+            --primary: #0ea5e9;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --muted: #475569;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            display: flex;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: var(--foreground);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 4rem 0;
+        }
+        
+        .hero-content {
+            max-width: 50%;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--muted);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--background);
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .hero-image {
+            margin-left: 10%;
+            width: 40%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .features {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+        
+        .feature {
+            padding-top: -25%;
+            margin-left: 1%;
+            margin-right: 1%;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 4rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .feature h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .about {
+            padding: 4rem 0;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonials {
+            padding: 4rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-content {
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .faq {
+            padding: 4rem 0;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+        }
+        
+        .faq-question {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .faq-answer {
+            padding: 1rem;
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        .cta {
+            padding: 4rem 0;
+            text-align: center;
+            background-color: var(--primary);
+            color: var(--background);
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-button-secondary {
+            display: inline-block;
+            background-color: var(--background);
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .cta-button-secondary:hover {
+            background-color: var(--foreground);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--foreground);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-image {
+                width: 80%;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--background);
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 0.5rem 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">SPITCH</div>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#about">About</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Break Free from Vaping</h1>
+                    <p>SPITCH is your personal guide to a smoke-free life. Track your progress, visualize your health improvements, and save money - all in one app.</p>
+                    <a href="#" class="cta-button">Start Your Journey</a>
+                </div>
+                <img src="https://raw.githubusercontent.com/JNX03/SPITCH/refs/heads/main/lungs.png" alt="Healthy Lungs" class="hero-image">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-lungs"></i></div>
+                    <h3>Lung Health Tracker</h3>
+                    <p>Visualize your lung health improvement as you progress on your smoke-free journey.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-piggy-bank"></i></div>
+                    <h3>Money Saved Calculator</h3>
+                    <p>Watch your savings grow day by day as you quit vaping and smoking.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Personalized Goals</h3>
+                    <p>Set and track custom goals to keep yourself motivated throughout your journey.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Achievement System</h3>
+                    <p>Earn badges and celebrate milestones as you make progress in your smoke-free life.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>About SPITCH</h2>
+                        <p>SPITCH was born from a passion to help people break free from the chains of vaping and smoking. Our team of health experts and tech enthusiasts came together to create a powerful, yet easy-to-use app that guides you through your journey to a smoke-free life.</p>
+                        <p>With SPITCH, you're not just quitting - you're embarking on a transformative journey towards better health, more savings, and a brighter future.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="/placeholder.svg?height=300&width=400" alt="SPITCH Team">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>Ready to Start Your Smoke-Free Journey?</h2>
+                <p>Join thousands of others who have successfully quit with SPITCH.</p>
+                <a href="#" class="cta-button-secondary">Download SPITCH Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 SPITCH. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('active');
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
